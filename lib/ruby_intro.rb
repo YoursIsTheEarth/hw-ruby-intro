@@ -64,5 +64,48 @@ end
 # Part 3
 
 class BookInStock
-# YOUR CODE HERE
+
+  def initialize(isbn, price)
+    if !(isbn.is_a? String) || !(price.is_a? Numeric)
+      raise ArgumentError
+    elsif price <= 0 || isbn == ""
+      raise ArgumentError
+    end
+      
+    @isbn = isbn
+    @price = price
+  end
+
+  def isbn
+    @isbn
+  end
+  
+  def isbn= isbn
+    @isbn = isbn
+  end
+  
+  def price
+    @price
+  end
+  
+  def price= price
+    @price = price
+  end
+  
+  def price_as_string
+    str = '$' + @price.to_s
+    i = 1
+    str.each_char {|c| 
+      if c == '.'
+        extras = i + 2 - str.size
+        for i in 1..extras
+          str = str + '0'
+        end
+        return str
+      end
+      i += 1
+    }
+    str = str + '.00'
+    return str
+  end
 end
